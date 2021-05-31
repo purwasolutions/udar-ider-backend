@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Region from './Region';
+import Regency from './Regency';
 
 export default class District extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
-  public region_id: number;
+  @column({ serializeAs: 'regencyId' })
+  public regencyId: number;
 
   @column()
   public name: string;
@@ -15,8 +15,8 @@ export default class District extends BaseModel {
   @column()
   public code: string;
 
-  @belongsTo(() => Region)
-  public region: BelongsTo<typeof Region>
+  @belongsTo(() => Regency)
+  public regency: BelongsTo<typeof Regency>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

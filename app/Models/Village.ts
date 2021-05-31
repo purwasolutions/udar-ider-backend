@@ -6,7 +6,7 @@ export default class Village extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: 'districtId' })
   public districtId: number;
 
   @column()

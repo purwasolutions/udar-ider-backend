@@ -7,7 +7,7 @@ export default class Districts extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.integer('region_id').unsigned()
+      table.integer('regency_id').unsigned()
 
       table.string('name')
       table.string('code').unique()
@@ -18,7 +18,7 @@ export default class Districts extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
 
-      table.foreign('region_id', 'id').references('regions')
+      table.foreign('regency_id', 'id').references('regencies')
     })
   }
 

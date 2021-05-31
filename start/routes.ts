@@ -24,19 +24,27 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
+Route.get('/provinces', 'ProvincesController.all');
+Route.get('/provinces/:id/regencies', 'RegenciesController.findByProvinceId');
+Route.get('/regencies/:id/districts', 'DistrictsController.findByRegencyId');
+Route.get('/districts/:id/villages', 'VillagesController.findByDistrictId');
+Route.get('/villages/:id', 'VillagesController.findById');
+
 Route
   .group(() => {
     Route.post('/', 'UsersController.register');
     Route.get('/', 'UsersController.loggedUser').middleware('firebase');
+    Route.get('/store', 'UsersController.currentStore').middleware('firebase');
+    Route.put('/store', 'UsersController.updateStore').middleware('firebase');
+    Route.put('/store/image', 'UsersController.updateStoreImage').middleware('firebase');
   })
   .prefix('user');
-
 
 Route
   .group(() => {
     // Product Categories
     Route.group(() => {
-      Route.post('/', 'ProductCategoriesController.store');
+      Route.post('/', 'CategoriesController.store');
     }).prefix('product-categories');
 
   })
@@ -45,21 +53,16 @@ Route
 
 Route
   .group(() => {
+    Route.get('/categories', 'CategoriesController.paginate')
+
     Route
       .group(() => {
-        Route
-          .post('/', 'ProductsController.store');
+        Route.post('/', 'ProductsController.store');
+        Route.get('/', 'ProductsController.paginate');
+        Route.get('/:id', 'ProductsController.findById');
+        Route.put('/:id', 'ProductsController.update');
+        Route.delete('/:id', 'ProductsController.delete');
       })
-        .prefix('products');
-  
+      .prefix('products');
   })
-    .prefix('store')
-    .namespace('App/Controllers/Http/Store');
-
-Route
-  .group(() => {
-    Route.get('/product-categories', 'ProductCategoriesController.paginate')
-    
-    Route.get('/products', 'ProductsController.paginate')
-    Route.get('/products/:id', 'ProductsController.findById')
-  })
+  .middleware('firebase');

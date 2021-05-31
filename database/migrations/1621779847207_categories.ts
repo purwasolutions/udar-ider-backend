@@ -1,7 +1,7 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class ProductCategories extends BaseSchema {
-  protected tableName = 'product_categories'
+  protected tableName = 'categories'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {

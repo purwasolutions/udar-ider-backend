@@ -2,11 +2,11 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Province from './Province';
 
-export default class Region extends BaseModel {
+export default class Regency extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: 'provinceId' })
   public provinceId: number;
 
   @column()

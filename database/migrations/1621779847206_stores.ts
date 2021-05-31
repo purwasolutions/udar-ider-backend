@@ -7,21 +7,28 @@ export default class Stores extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
+      table.integer('village_id').unsigned()
+      table.integer('user_id').unsigned()
+
       table.string('name')
       table.string('address').nullable()
-      table.integer('village_id').unsigned()
+      table.string('image')
 
       table.string('longitude').nullable()
       table.string('latitude').nullable()
 
+      table.boolean('isOpen').defaultTo(true);
+
+      table.timestamp('opened_at', { useTz: true })
+      table.timestamp('closed_at', { useTz: true })
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
        */
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
 
-      table.foreign('from_id', 'uid').references('users')
-      table.foreign('to_id', 'uid').references('users')
+      table.foreign('village_id', 'id').references('villages')
+      table.foreign('user_id', 'id').references('users')
     })
   }
 

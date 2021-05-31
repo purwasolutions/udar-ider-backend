@@ -1,9 +1,9 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
-export default class Regions extends BaseSchema {
-  protected tableName = 'regions'
+export default class Regencies extends BaseSchema {
+  protected tableName = 'regencies'
 
-  public async up () {
+  public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
@@ -22,7 +22,7 @@ export default class Regions extends BaseSchema {
     })
   }
 
-  public async down () {
+  public async down() {
     this.schema.dropTable(this.tableName)
   }
 }
