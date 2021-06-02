@@ -6,10 +6,10 @@ export default class Message extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: 'fromId' })
   public fromId: number;
 
-  @column()
+  @column({ serializeAs: 'toId' })
   public toId: number;
 
   @column()

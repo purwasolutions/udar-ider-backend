@@ -7,10 +7,10 @@ export default class OrderItem extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: 'orderId' })
   public orderId: number;
 
-  @column()
+  @column({ serializeAs: 'storeId' })
   public storeId: number;
 
   @column()

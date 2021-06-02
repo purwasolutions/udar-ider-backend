@@ -6,7 +6,7 @@ export default class ProductImage extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: 'productId' })
   public productId: number;
 
   @column()

@@ -7,6 +7,7 @@ import Jimp from 'jimp';
 import Path from 'path';
 import fs from 'fs';
 import { string } from '@ioc:Adonis/Core/Helpers';
+import { EntityResponse } from 'App/Response/EntityResponse';
 
 export default class UsersController {
   public async register({ request }: HttpContextContract) {
@@ -19,7 +20,7 @@ export default class UsersController {
       roleId: role.id
     })
 
-    return user.serialize();
+    return new EntityResponse(user.serialize());
   }
 
   public async loggedUser({ response, user }: HttpContextContract) {
@@ -40,22 +41,17 @@ export default class UsersController {
         throw new Error(err);
       });
 
-    return response.json(result)
+    return response.json(new EntityResponse(result))
   }
 
   public async currentStore({ response, user }: HttpContextContract) {
     const result = await Store.findBy('user_id', user.id);
 
     if (!result) {
-      return response.json({
-        status: false
-      })
+      return response.json(new EntityResponse(null, false));
     }
 
-    return response.json({
-      status: true,
-      data: result.serialize()
-    })
+    return response.json(new EntityResponse(result.serialize()))
   }
 
   public async updateStore({ response, request, user }: HttpContextContract) {
@@ -74,7 +70,7 @@ export default class UsersController {
         throw new Error(err);
       });
 
-    return response.json(store.serialize());
+    return response.json(new EntityResponse(store.serialize()));
   }
 
   public async updateStoreImage({ response, request, user }: HttpContextContract) {
@@ -111,6 +107,6 @@ export default class UsersController {
         })
     }
 
-    return response.json(store.serialize());
+    return response.json(new EntityResponse(store.serialize()));
   }
 }

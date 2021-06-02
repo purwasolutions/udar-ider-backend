@@ -1,5 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Village from 'App/Models/Village';
+import { EntityResponse } from 'App/Response/EntityResponse';
 
 export default class VillagesController {
   public async findByDistrictId({ response, request }: HttpContextContract) {
@@ -24,6 +25,6 @@ export default class VillagesController {
 
     if (!village) return response.status(404).json({ message: 'Village not found ' });
 
-    return response.json(village)
+    return response.json(new EntityResponse(village.serialize()))
   }
 }

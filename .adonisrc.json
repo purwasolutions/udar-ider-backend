@@ -32,6 +32,6 @@
     "@adonisjs/repl"
   ],
   "directories": {
-    "public": "uploads"
+    "public": "public"
   }
 }

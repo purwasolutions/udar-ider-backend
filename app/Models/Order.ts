@@ -6,7 +6,7 @@ export default class Order extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: 'courierId ' })
   public courierId: number;
 
   @belongsTo(() => User)

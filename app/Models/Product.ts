@@ -8,10 +8,10 @@ export default class Product extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({ serializeAs: 'categoryId' })
   public categoryId: number;
 
-  @column()
+  @column({ serializeAs: 'storeId' })
   public storeId: number;
 
   @column()

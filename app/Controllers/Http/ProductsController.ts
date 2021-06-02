@@ -7,6 +7,7 @@ import Store from 'App/Models/Store';
 import { string } from '@ioc:Adonis/Core/Helpers';
 import path from 'path';
 import Jimp from 'jimp';
+import { EntityResponse } from 'App/Response/EntityResponse';
 
 export default class ProductsController {
   public async store({ response, request, user }: HttpContextContract) {
@@ -48,7 +49,7 @@ export default class ProductsController {
       await image.save();
     })
 
-    return response.json(product.serialize());
+    return response.json(new EntityResponse(product.serialize()));
   }
 
   public async paginate({ response, request, user }: HttpContextContract) {
@@ -102,7 +103,7 @@ export default class ProductsController {
         throw new Error(err.message);
       });
 
-    return response.json(product.serialize());
+    return response.json(new EntityResponse(product.serialize()));
   }
 
   public async update({ response, request }: HttpContextContract) {
@@ -139,7 +140,7 @@ export default class ProductsController {
         throw new Error(err.message);
       });
 
-    return response.json(result.serialize());
+    return response.json(new EntityResponse(result.serialize()));
   }
 
   public async delete({ response, request, user }: HttpContextContract) {
@@ -168,6 +169,6 @@ export default class ProductsController {
         throw new Error(err.message);
       });
 
-    return response.json(result);
+    return response.json(new EntityResponse(result));
   }
 }

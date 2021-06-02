@@ -10,10 +10,10 @@ export default class User extends BaseModel {
   @column()
   public uid: string
 
-  @column()
+  @column({ serializeAs: 'roleId' })
   public roleId: number;
 
-  @column()
+  @column({ serializeAs: 'socketId' })
   public socketId?: string;
 
   @column()

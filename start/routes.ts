@@ -30,6 +30,8 @@ Route.get('/regencies/:id/districts', 'DistrictsController.findByRegencyId');
 Route.get('/districts/:id/villages', 'VillagesController.findByDistrictId');
 Route.get('/villages/:id', 'VillagesController.findById');
 
+Route.get('/banners', 'BannersController.activedBanners');
+
 Route
   .group(() => {
     Route.post('/', 'UsersController.register');
