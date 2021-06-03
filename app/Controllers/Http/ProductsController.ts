@@ -58,6 +58,9 @@ export default class ProductsController {
     const isMyProduct = qs.my_product ? String(qs.my_product).toLowerCase() === 'true' || false : false;
     const page = qs.page || 1;
     const perPage = qs.perPage || 10;
+    const search = qs.search || '';
+    const category = qs.category || '';
+    const sort: string = qs.sort || '';
 
     const query = Product
       .query()
@@ -77,6 +80,18 @@ export default class ProductsController {
         });
     }
 
+    if (search !== '') {
+      query.andWhere('name', 'like', `%${search}%`);
+    }
+
+    if (category !== '') {
+      query.andWhere('category_id', category);
+    }
+
+    if (sort !== '') {
+      const [by, order]: any = sort.split(',');
+      query.orderBy(by, order);
+    }
 
     const result = await query.paginate(page, perPage);
 
