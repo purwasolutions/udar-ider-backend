@@ -6,11 +6,14 @@ export default class Order extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column({ serializeAs: 'courierId ' })
-  public courierId: number;
+  @column({ serializeAs: 'userId' })
+  public userId: number;
+
+  @column()
+  public status: number;
 
   @belongsTo(() => User)
-  public courier: BelongsTo<typeof User>
+  public user: BelongsTo<typeof User>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

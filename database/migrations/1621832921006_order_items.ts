@@ -7,11 +7,11 @@ export default class OrderItems extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.integer('order_id').unsigned()
+      table.integer('order_id').unsigned().nullable()
       table.integer('store_id').unsigned().nullable()
 
       table.string('name')
-      table.integer('quantity')
+      table.integer('quantity').defaultTo(1)
       table.double('price')
 
       table.text('note').nullable()

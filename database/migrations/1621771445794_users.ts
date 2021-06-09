@@ -14,6 +14,7 @@ export default class Users extends BaseSchema {
       table.string('name')
       table.string('email').unique()
       table.string('phone').unique().nullable()
+      table.string('image').nullable()
 
       table.string('latitude').nullable()
       table.string('longitude').nullable()
@@ -24,7 +25,7 @@ export default class Users extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
 
-      table.foreign('role_id', 'id').references('roles')
+      table.foreign('role_id').references('roles')
     })
   }
 

@@ -7,7 +7,7 @@ export default class Orders extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.integer('courier_id').unsigned()
+      table.integer('user_id').unsigned()
 
       /**
        * Uses timestampz for PostgreSQL and DATETIME2 for MSSQL
@@ -15,7 +15,7 @@ export default class Orders extends BaseSchema {
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
 
-      table.foreign('courier_id', 'id').references('users')
+      table.foreign('user_id', 'id').references('users')
     })
   }
 
