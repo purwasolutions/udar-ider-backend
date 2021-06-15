@@ -41,5 +41,6 @@ Server.middleware.register([
 |
 */
 Server.middleware.registerNamed({
-  firebase: () => import('App/Middleware/Firebase')
+  firebase: () => import('App/Middleware/Firebase'),
+  authorization: () => import('App/Middleware/Authorization')
 })

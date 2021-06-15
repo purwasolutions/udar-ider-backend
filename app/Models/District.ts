@@ -3,7 +3,10 @@ import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Regency from './Regency';
 
 export default class District extends BaseModel {
-  @column({ isPrimary: true })
+  @column({
+    isPrimary: true,
+    serializeAs: '_id'
+  })
   public id: number
 
   @column({ serializeAs: 'regencyId' })

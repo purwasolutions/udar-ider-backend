@@ -5,7 +5,10 @@ import Product from './Product';
 import UnlistedProduct from './UnlistedProduct';
 
 export default class Cart extends BaseModel {
-  @column({ isPrimary: true })
+  @column({
+    isPrimary: true,
+    serializeAs: '_id'
+  })
   public id: number
 
   @column({ serializeAs: 'userId' })

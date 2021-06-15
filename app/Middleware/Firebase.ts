@@ -6,6 +6,7 @@ import FirebaseAdmin from 'firebase-admin'
 export default class Firebase {
   public async handle(ctx: HttpContextContract, next: () => Promise<void>) {
     const idToken = ctx.request.header('Authorization');
+
     if (idToken) {
       const verifyToken = await FirebaseAdmin
         .auth()

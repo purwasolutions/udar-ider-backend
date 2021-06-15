@@ -4,7 +4,10 @@ import Village from './Village';
 import User from './User';
 
 export default class Store extends BaseModel {
-  @column({ isPrimary: true })
+  @column({
+    isPrimary: true,
+    serializeAs: '_id'
+  })
   public id: number
 
   @column({ serializeAs: 'villageId' })

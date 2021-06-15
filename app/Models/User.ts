@@ -4,7 +4,10 @@ import Role from './Role'
 import Store from './Store'
 
 export default class User extends BaseModel {
-  @column({ isPrimary: true })
+  @column({
+    isPrimary: true,
+    serializeAs: '_id'
+  })
   public id: number
 
   @column()

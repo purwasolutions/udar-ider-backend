@@ -4,7 +4,10 @@ import Order from './Order';
 import Store from './Store';
 
 export default class OrderItem extends BaseModel {
-  @column({ isPrimary: true })
+  @column({
+    isPrimary: true,
+    serializeAs: '_id'
+  })
   public id: number
 
   @column({ serializeAs: 'orderId' })

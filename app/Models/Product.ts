@@ -5,7 +5,10 @@ import Store from './Store';
 import ProductImage from './ProductImage';
 
 export default class Product extends BaseModel {
-  @column({ isPrimary: true })
+  @column({
+    isPrimary: true,
+    serializeAs: '_id'
+  })
   public id: number
 
   @column({ serializeAs: 'categoryId' })

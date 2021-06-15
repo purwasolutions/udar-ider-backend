@@ -109,4 +109,15 @@ export default class UsersController {
 
     return response.json(new EntityResponse(store.serialize()));
   }
+
+  public async storeActivation({ user, response }: HttpContextContract) {
+    const store = new Store();
+
+    store.userId = user.id;
+    store.name = user.name;
+
+    await store.save()
+
+    return response.json(new EntityResponse(store.serialize()));
+  }
 }

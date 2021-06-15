@@ -7,6 +7,7 @@
 
 import proxyAddr from 'proxy-addr'
 import Env from '@ioc:Adonis/Core/Env'
+import path from 'path'
 import { ServerConfig } from '@ioc:Adonis/Core/Server'
 import { LoggerConfig } from '@ioc:Adonis/Core/Logger'
 import { ProfilerConfig } from '@ioc:Adonis/Core/Profiler'
@@ -233,3 +234,5 @@ export const profiler: ProfilerConfig = {
 */
 export const validator: ValidatorConfig = {
 }
+
+export const rootdir = path.join(__dirname, '../');

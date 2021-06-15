@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^5.0.0",
+    "@types/jsonwebtoken": "^8.5.1",
     "@types/lodash": "^4.14.170",
     "adonis-preset-ts": "^2.1.0",
     "pino-pretty": "^4.8.0",

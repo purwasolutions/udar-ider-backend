@@ -7,7 +7,7 @@ export default class Stores extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
 
-      table.integer('village_id').unsigned()
+      table.integer('village_id').unsigned().nullable()
       table.integer('user_id').unsigned()
 
       table.string('name')
