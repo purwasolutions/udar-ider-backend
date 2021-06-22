@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon';
+import { BaseModel, BelongsTo, belongsTo, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm';
 import Category from './Category';
 import Store from './Store';
 import ProductImage from './ProductImage';
@@ -9,7 +9,7 @@ export default class Product extends BaseModel {
     isPrimary: true,
     serializeAs: '_id'
   })
-  public id: number
+  public id: number;
 
   @column({ serializeAs: 'categoryId' })
   public categoryId: number;
@@ -23,18 +23,25 @@ export default class Product extends BaseModel {
   @column()
   public price: number;
 
-  @belongsTo(() => Category)
-  public category: BelongsTo<typeof Category>
-
-  @belongsTo(() => Store)
-  public store: BelongsTo<typeof Store>
-
-  @hasMany(() => ProductImage)
-  public images: HasMany<typeof ProductImage>
-
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
+
+  @column.dateTime()
+  public deletedAt?: DateTime;
+
+  /**
+   * Relations
+   */
+
+  @belongsTo(() => Category)
+  public category: BelongsTo<typeof Category>;
+
+  @belongsTo(() => Store)
+  public store: BelongsTo<typeof Store>;
+
+  @hasMany(() => ProductImage)
+  public images: HasMany<typeof ProductImage>;
 }

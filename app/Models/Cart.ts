@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon';
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
 import User from './User';
 import Product from './Product';
 import UnlistedProduct from './UnlistedProduct';
@@ -9,7 +9,7 @@ export default class Cart extends BaseModel {
     isPrimary: true,
     serializeAs: '_id'
   })
-  public id: number
+  public id: number;
 
   @column({ serializeAs: 'userId' })
   public userId: number;
@@ -26,18 +26,22 @@ export default class Cart extends BaseModel {
   @column()
   public note?: string;
 
-  @belongsTo(() => User)
-  public user: BelongsTo<typeof User>
-
-  @belongsTo(() => Product)
-  public product: BelongsTo<typeof Product>
-
-  @belongsTo(() => UnlistedProduct)
-  public unlistedProduct: BelongsTo<typeof UnlistedProduct>
-
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
+
+  /**
+   * Relations
+   */
+
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>;
+
+  @belongsTo(() => Product)
+  public product: BelongsTo<typeof Product>;
+
+  @belongsTo(() => UnlistedProduct)
+  public unlistedProduct: BelongsTo<typeof UnlistedProduct>;
 }

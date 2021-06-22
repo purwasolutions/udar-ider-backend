@@ -8,6 +8,9 @@ import Path from 'path';
 import fs from 'fs';
 import { string } from '@ioc:Adonis/Core/Helpers';
 import { EntityResponse } from 'App/Response/EntityResponse';
+import Profile from 'App/Models/Profile';
+import Address from 'App/Models/Address';
+import Cart from 'App/Models/Cart';
 
 export default class UsersController {
   public async register({ request }: HttpContextContract) {
@@ -15,10 +18,13 @@ export default class UsersController {
 
     const user = await User.firstOrCreate({ uid: request.input('uid') }, {
       uid: request.input('uid'),
-      name: request.input('name'),
       email: request.input('email'),
       roleId: role.id
     })
+
+    await Profile.firstOrCreate({ userId: user.id }, {
+      name: request.input('name')
+    });
 
     return new EntityResponse(user.serialize());
   }
@@ -34,18 +40,27 @@ export default class UsersController {
         if (!res) {
           throw new EntityNotFoundException('User not found');
         }
-        return res.serialize();
+        return res;
       })
       .catch((err) => {
         console.error(err);
         throw new Error(err);
       });
 
-    return response.json(new EntityResponse(result))
+    const cart = await Cart.query()
+      .where('user_id', user.id)
+      .exec();
+
+    result.hasCart = cart.length > 0;
+
+    return response.json(new EntityResponse(result.serialize()))
   }
 
   public async currentStore({ response, user }: HttpContextContract) {
-    const result = await Store.findBy('user_id', user.id);
+    const result = await Store.query()
+      .where('user_id', user.id)
+      .preload('address')
+      .first()
 
     if (!result) {
       return response.json(new EntityResponse(null, false));
@@ -89,8 +104,8 @@ export default class UsersController {
         if (!err) data.quality(40).write(`${dir}/${filename}`);
       })
 
-      const oldData = store.image;
-      store.image = `images/${filename}`
+      const oldData = store.avatar;
+      store.avatar = `images/${filename}`
 
       await store
         .save()
@@ -110,13 +125,18 @@ export default class UsersController {
     return response.json(new EntityResponse(store.serialize()));
   }
 
-  public async storeActivation({ user, response }: HttpContextContract) {
-    const store = new Store();
+  public async storeActivation({ user, response, request }: HttpContextContract) {
+    console.log(request.input('address'));
+    const address = await Address.create({
+      name: 'Toko',
+      villageId: request.input('villageId'),
+      address: request.input('address')
+    });
 
-    store.userId = user.id;
-    store.name = user.name;
-
-    await store.save()
+    const store = await Store.firstOrCreate({ userId: user.id }, {
+      name: request.input('name'),
+      addressId: address.id
+    })
 
     return response.json(new EntityResponse(store.serialize()));
   }

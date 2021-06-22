@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route';
+import './routes/role';
 import './routes/user';
 import './routes/category';
 import './routes/product';
@@ -26,8 +27,8 @@ import './routes/cart';
 import './routes/order';
 
 Route.get('/', async () => {
-  return { hello: 'world' }
-})
+  return { hello: 'world' };
+});
 
 Route.get('/provinces', 'ProvincesController.all');
 Route.get('/provinces/:id/regencies', 'RegenciesController.findByProvinceId');

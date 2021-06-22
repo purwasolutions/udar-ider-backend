@@ -1,12 +1,12 @@
-import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon';
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm';
 
 export default class Category extends BaseModel {
   @column({
     isPrimary: true,
     serializeAs: '_id'
   })
-  public id: number
+  public id: number;
 
   @column()
   public name: string;
@@ -15,8 +15,8 @@ export default class Category extends BaseModel {
   public icon: string;
 
   @column.dateTime({ autoCreate: true, serializeAs: 'createdAt' })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true, serializeAs: 'updatedAt' })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
 }

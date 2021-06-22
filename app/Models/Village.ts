@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon';
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
 import District from './District';
 
 export default class Village extends BaseModel {
@@ -7,7 +7,7 @@ export default class Village extends BaseModel {
     isPrimary: true,
     serializeAs: '_id'
   })
-  public id: number
+  public id: number;
 
   @column({ serializeAs: 'districtId' })
   public districtId: number;
@@ -18,12 +18,16 @@ export default class Village extends BaseModel {
   @column()
   public code: string;
 
-  @belongsTo(() => District)
-  public district: BelongsTo<typeof District>
-
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
+
+  /**
+   * Relations
+   */
+
+  @belongsTo(() => District)
+  public district: BelongsTo<typeof District>;
 }

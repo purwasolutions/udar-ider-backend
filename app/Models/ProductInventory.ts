@@ -1,22 +1,21 @@
 import { DateTime } from 'luxon';
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
-import Province from './Province';
+import Product from './Product';
 
-export default class Regency extends BaseModel {
-  @column({
-    isPrimary: true,
-    serializeAs: '_id'
-  })
+export default class ProductInventory extends BaseModel {
+  @column({ isPrimary: true })
   public id: number;
 
-  @column({ serializeAs: 'provinceId' })
-  public provinceId: number;
+  @column({
+    serializeAs: 'productId'
+  })
+  public productId: number;
 
   @column()
-  public name: string;
+  public prevStock: number;
 
   @column()
-  public code: string;
+  public currentStock: number;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
@@ -28,6 +27,6 @@ export default class Regency extends BaseModel {
    * Relations
    */
 
-  @belongsTo(() => Province)
-  public province: BelongsTo<typeof Province>;
+  @belongsTo(() => Product)
+  public product: BelongsTo<typeof Product>;
 }

@@ -1,5 +1,5 @@
-import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { DateTime } from 'luxon';
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
 import User from './User';
 
 export default class Order extends BaseModel {
@@ -7,7 +7,7 @@ export default class Order extends BaseModel {
     isPrimary: true,
     serializeAs: '_id'
   })
-  public id: number
+  public id: number;
 
   @column({ serializeAs: 'userId' })
   public userId: number;
@@ -15,12 +15,19 @@ export default class Order extends BaseModel {
   @column()
   public status: number;
 
-  @belongsTo(() => User)
-  public user: BelongsTo<typeof User>
-
   @column.dateTime({ autoCreate: true })
-  public createdAt: DateTime
+  public createdAt: DateTime;
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  public updatedAt: DateTime
+  public updatedAt: DateTime;
+
+  @column.dateTime()
+  public deletedAt?: DateTime;
+
+  /**
+   * Relations
+   */
+
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>;
 }

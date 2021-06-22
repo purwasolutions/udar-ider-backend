@@ -1,10 +1,11 @@
 import Route from '@ioc:Adonis/Core/Route';
 
 const CartRoutes = () => {
-  Route.get('/carts', 'CartsController.list')
-  Route.post('/carts', 'CartsController.addProduct')
-  Route.post('/carts/unlisted', 'CartsController.addUnlistedProduct')
-  Route.delete('/carts/:id', 'CartsController.remove')
+  Route.get('/', 'CartsController.list');
+  Route.post('/', 'CartsController.addProduct');
+  Route.post('/unlisted', 'CartsController.addUnlistedProduct');
+  Route.put('/', 'CartsController.update');
+  Route.delete('/:id', 'CartsController.remove')
 }
 Route.group(CartRoutes)
   .middleware('firebase')

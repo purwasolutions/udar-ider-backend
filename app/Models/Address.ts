@@ -1,26 +1,33 @@
 import { DateTime } from 'luxon';
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm';
-import User from './User';
-import Address from './Address';
+import Village from './Village';
 
-export default class Store extends BaseModel {
+export default class Address extends BaseModel {
   @column({
     isPrimary: true,
     serializeAs: '_id'
   })
   public id: number;
 
-  @column({ serializeAs: 'userId' })
-  public userId: number;
-
-  @column({ serializeAs: 'addressId' })
-  public addressId: number;
+  @column({
+    serializeAs: 'villageId'
+  })
+  public villageId: number;
 
   @column()
   public name: string;
 
   @column()
-  public avatar?: string;
+  public address: string;
+
+  @column()
+  public longitude?: string;
+
+  @column()
+  public latitude?: string;
+
+  @column()
+  public isPrimary: boolean;
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime;
@@ -32,9 +39,6 @@ export default class Store extends BaseModel {
    * Relations
    */
 
-  @belongsTo(() => User)
-  public user: BelongsTo<typeof User>;
-
-  @belongsTo(() => Address)
-  public address: BelongsTo<typeof Address>;
+  @belongsTo(() => Village)
+  public village: BelongsTo<typeof Village>;
 }
