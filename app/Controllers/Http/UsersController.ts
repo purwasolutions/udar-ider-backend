@@ -35,6 +35,7 @@ export default class UsersController {
       .where('id', user.id)
       .preload('role')
       .preload('store')
+      .preload('profile')
       .first()
       .then((res) => {
         if (!res) {
