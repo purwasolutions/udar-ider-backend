@@ -25,6 +25,7 @@ import './routes/category';
 import './routes/product';
 import './routes/cart';
 import './routes/order';
+import './routes/message';
 
 Route.get('/', async () => {
   return { hello: 'world' };

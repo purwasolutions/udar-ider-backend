@@ -1,7 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import EntityNotFoundException from 'App/Exceptions/EntityNotFoundException';
 import Cart from 'App/Models/Cart';
-import UnlistedProduct from 'App/Models/UnlistedProduct'
 import { EntityResponse } from 'App/Response/EntityResponse';
 
 interface Item {
@@ -19,24 +18,7 @@ interface ListCart {
 }
 
 export default class CartsController {
-  public async addUnlistedProduct({ response, request, user }: HttpContextContract) {
-    const product = await UnlistedProduct.create({
-      name: request.input('name'),
-      price: request.input('price'),
-      note: request.input('note'),
-    });
-
-    const cart = await Cart.create({
-      userId: user.id,
-      unlistedProductId: product.id,
-      quantity: request.input('quantity'),
-      note: product.note
-    });
-
-    return response.json(new EntityResponse(cart));
-  }
-
-  public async addProduct({ response, request, user }: HttpContextContract) {
+  public async create({ response, request, user }: HttpContextContract) {
     const cart = await Cart.create({
       userId: user.id,
       productId: request.input('productId'),
@@ -47,7 +29,7 @@ export default class CartsController {
     return response.json(new EntityResponse(cart));
   }
 
-  public async remove({ response, request, user }: HttpContextContract) {
+  public async delete({ response, request, user }: HttpContextContract) {
     const cart = await Cart
       .query()
       .where('user_id', user.id)
@@ -61,7 +43,7 @@ export default class CartsController {
     return response.json(new EntityResponse(null, false, 'Failed to delete cart'));
   }
 
-  public async list({ response, user }: HttpContextContract) {
+  public async paginate({ response, user }: HttpContextContract) {
     const data = await Cart
       .query()
       .where('user_id', user.id)
@@ -71,7 +53,6 @@ export default class CartsController {
           .preload('images')
           .preload('store');
       })
-      .preload('unlistedProduct')
       .paginate(1, 100);
 
     const serialized = data.serialize();
@@ -98,30 +79,6 @@ export default class CartsController {
               items: [{
                 _id: item._id,
                 quantity: item.quantity,
-                note: item.note,
-                product
-              }]
-            });
-          }
-        } else {
-          const product = item.unlistedProduct;
-          const currentStore = listCart.find((item) => item._id === 0);
-
-          if (currentStore) {
-            currentStore.items = [...currentStore.items, {
-              _id: item._id,
-              quantity: item.quantity,
-              note: item.note,
-              product
-            }];
-          } else {
-            listCart.push({
-              _id: 0,
-              name: 'Barang Yang Belum Terdaftar',
-              items: [{
-                _id: item._id,
-                quantity: item.quantity,
-                location: item.location,
                 note: item.note,
                 product
               }]

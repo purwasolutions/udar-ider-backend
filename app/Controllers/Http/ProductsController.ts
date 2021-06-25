@@ -102,7 +102,9 @@ export default class ProductsController {
     const product = await Product
       .query()
       .where('id', request.param('id'))
-      .preload('store')
+      .preload('store', (query) => {
+        query.preload('user');
+      })
       .preload('category')
       .preload('images')
       .first()
