@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route';
+import './routes/admin/notification';
 import './routes/role';
 import './routes/user';
 import './routes/category';
